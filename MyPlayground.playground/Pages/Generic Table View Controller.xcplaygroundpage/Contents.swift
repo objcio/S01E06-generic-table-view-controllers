@@ -50,9 +50,16 @@ final class ItemsViewController<Item, Cell: UITableViewCell>: UITableViewControl
 }
 
 
-let sampleEpisodes = [Episode(title: "First Episode"), Episode(title: "Second Episode"), Episode(title: "Third Episode")]
+let sampleEpisodes = [
+    Episode(title: "First Episode"),
+    Episode(title: "Second Episode"),
+    Episode(title: "Third Episode")
+]
 
-let sampleSeasons = [Season(number: 1, title: "Season One"), Season(number: 2, title: "Season Two")]
+let sampleSeasons = [
+    Season(number: 1, title: "Season One"),
+    Season(number: 2, title: "Season Two")
+]
 
 
 final class SeasonCell: UITableViewCell {
@@ -83,8 +90,6 @@ seasonsVC.didSelect = { season in
 }
 
 nc.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
-
-
 XCPlaygroundPage.currentPage.liveView = nc.view
 
 
