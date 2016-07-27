@@ -29,6 +29,7 @@ final class ItemsViewController<Item, Cell: UITableViewCell>: UITableViewControl
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         tableView.registerClass(Cell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     
