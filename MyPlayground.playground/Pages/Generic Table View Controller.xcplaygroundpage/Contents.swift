@@ -1,5 +1,5 @@
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
 
 struct Episode {
@@ -18,9 +18,9 @@ final class ItemsViewController<Item, Cell: UITableViewCell>: UITableViewControl
     let configure: (Cell, Item) -> ()
     var didSelect: (Item) -> () = { _ in }
     
-    init(items: [Item], configure: (Cell, Item) -> ()) {
+    init(items: [Item], configure: @escaping (Cell, Item) -> ()) {
         self.configure = configure
-        super.init(style: .Plain)
+        super.init(style: .plain)
         self.items = items
     }
     
@@ -29,24 +29,26 @@ final class ItemsViewController<Item, Cell: UITableViewCell>: UITableViewControl
     }
     
     override func viewDidLoad() {
-        tableView.registerClass(Cell.self, forCellReuseIdentifier: reuseIdentifier)
+        super.viewDidLoad()
+        tableView.register(Cell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = items[indexPath.row]
         didSelect(item)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! Cell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! Cell
         let item = items[indexPath.row]
         configure(cell, item)
         return cell
     }
+    
 }
 
 
@@ -64,7 +66,7 @@ let sampleSeasons = [
 
 final class SeasonCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .Value1, reuseIdentifier: reuseIdentifier)
+        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -90,6 +92,5 @@ seasonsVC.didSelect = { season in
 }
 
 nc.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
-XCPlaygroundPage.currentPage.liveView = nc.view
-
+PlaygroundPage.current.liveView = nc.view
 
